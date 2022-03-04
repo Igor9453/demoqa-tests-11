@@ -8,11 +8,11 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class HomeWorkTest {
+public class HomeWorkTests {
 
 
     @BeforeAll
-    static void beforAll () {
+    static void beforeAll () {
         Configuration.baseUrl = "https://demoqa.com";
     }
 
@@ -31,7 +31,7 @@ public class HomeWorkTest {
         $("#currentAddress").setValue("Rok address 1");
         $("#submit").click();
 
-        $("#output").shouldHave(text("ROK"), text("ROK@comp.su"),
-                text("Male"), text("+7-999-450-55-65"), text("11.01.1991"), text("history"), text("music"), text("Rok address 1"));
+        $("#output").shouldHave(text("ROK"), text("ROK@comp.su"), text("Male"),
+                text("+7-999-450-55-65"), text("11.01.1991"), text("history"), text("music"), text("Rok address 1"));
     }
 }
