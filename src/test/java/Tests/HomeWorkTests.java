@@ -12,16 +12,17 @@ public class HomeWorkTests {
 
 
     @BeforeAll
-    static void beforeAll () {
+    static void beforeAll() {
+        Configuration.browser = "Safari";
         Configuration.baseUrl = "https://demoqa.com";
     }
 
     @Test
     void successFillTest () {
         open("/automation-practice-form");
-        $(".main-header").shouldHave(text("Automation-Practice-Form"));
+        $(".main-header").shouldHave(text("Practice-Form"));
 
-        $("#userName").setValue("ROK");
+        $("#firstName").setValue("ROK");
         $("#userEmail").setValue("ROK@comp.su");
         $("#genterWrapper").setValue("gender-radio-1");
         $("#userNumber").setValue("+7-999-450-55-65");
