@@ -34,10 +34,12 @@ public class HomeWorkTests {
         $("#subjects-label").setValue("hobbies-checkbox-3");
         $("#uploadPicture").uploadFile(new File("src/test/resources/intro.jpg"));
         $("#currentAddress").setValue("Rok address 1");
+        $("#state").setValue("Haryana");
+        $("#city").setValue("Panipat");
         $("#submit").click();
 
         $("#output").shouldHave(text("ROK"), text("ROK-Hard"), text("ROK@comp.su"), text("Male"),
                 text("+7-999-450-55-65"), text("11.01.1991"), text("history"), text("music"), text("intro.jpg"),
-                text("Rok address 1"));
+                text("Rok address 1"), text("Haryana"), text("Panipat"));
     }
 }
