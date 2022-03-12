@@ -6,40 +6,57 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class HomeWorkTests {
 
-
     @BeforeAll
     static void beforeAll() {
-        Configuration.browser = "Safari";
         Configuration.baseUrl = "https://demoqa.com";
     }
 
+
     @Test
-    void successFillTest () {
+    void successFillTest() {
         open("/automation-practice-form");
-        $(".main-header").shouldHave(text("Practice-Form"));
+        $(".main-header").shouldHave(text("Practice Form"));
 
         $("#firstName").setValue("ROK");
-        $("#lastName").setValue("ROK-Hard");
-        $("#userEmail").setValue("ROK@comp.su");
-        $("#genterWrapper").setValue("gender-radio-1");
-        $("#userNumber").setValue("+7-999-450-55-65");
-        $("#dateOfBirthInput").setValue("11.01.1991");
-        $("#subjectsContainer").setValue("history");
-        $("#subjects-label").setValue("hobbies-checkbox-3");
+        $("#lastName").setValue("Rok-Hard");
+        $("#userEmail").setValue("rok@inbox.ru");
+        $("#genterWrapper").$(byText("Male")).click();
+        $("#userNumber").setValue("89994505565");
+
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__month-select").selectOptionByValue("2");
+        $(".react-datepicker__year-select").selectOptionByValue("1992");
+        $(".react-datepicker__day--012").click();
+
+        $("#subjectsInput").setValue("Moto").click();
+        $("#hobbiesWrapper").$(byText("Reading")).click();
         $("#uploadPicture").uploadFile(new File("src/test/resources/intro.jpg"));
-        $("#currentAddress").setValue("Rok address 1");
-        $("#state").setValue("Haryana");
-        $("#city").setValue("Panipat");
+        $("#currentAddress").setValue("ROK-Home");
+        $("#react-select-3-input").setValue("Haryana").pressEnter();
+        $("#react-select-4-input").setValue("Panipat").pressEnter();
         $("#submit").click();
 
-        $("#output").shouldHave(text("ROK"), text("ROK-Hard"), text("ROK@comp.su"), text("Male"),
-                text("+7-999-450-55-65"), text("11.01.1991"), text("history"), text("music"), text("intro.jpg"),
-                text("Rok address 1"), text("Haryana"), text("Panipat"));
+
+        $("#example-modal-sizes-title-lg").shouldHave((textCaseSensitive("Thanks for submitting the form")));
+        $(".table-responsive").shouldHave(
+                textCaseSensitive("Student Name"),    textCaseSensitive("ROK Rok-Hard"),
+                textCaseSensitive("Student Email"),   textCaseSensitive("rok@inbox.ru"),
+                textCaseSensitive("Gender"),          textCaseSensitive("Male"),
+                textCaseSensitive("Mobile"),          textCaseSensitive("89994505565"),
+                textCaseSensitive("Date of Birth"),   textCaseSensitive("2 February,1992"),
+                textCaseSensitive("Subjects"),        textCaseSensitive("Moto"),
+                textCaseSensitive("Hobbies"),         textCaseSensitive("Reading"),
+                textCaseSensitive("Picture"),         textCaseSensitive("intro.jpg"),
+                textCaseSensitive("Address"),         textCaseSensitive("ROK-Home"),
+                textCaseSensitive("State and City"),  textCaseSensitive("Haryana Panipat")
+        );
+
+        $("#closeLargeModal").click();
     }
 }
